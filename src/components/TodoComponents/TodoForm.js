@@ -1,12 +1,14 @@
 import React from 'react';
 
 const TodoForm = props => {
+  console.log(props);
   return (
-    <form onSubmit={props.submit}>
-      <input type='text' placeholder='task' value={props.text} />
-      <button>Add Todo</button>
-      <button onClick={props.clearList}>Clear completed</button>
-    </form>
+    <div className='form'>
+      <form onSubmit={props.addTheTask}>
+        <input type='text' placeholder='task' value={props.value} onChange={props.handle} name='formvalue' />
+        <button>Add Task</button>
+      </form>
+    </div>
   );
 };
 
