@@ -14,7 +14,7 @@ class TodoList extends React.Component {
 
   addTask = event => {
     event.preventDefault();
-    // debugger;
+
     const newTask = {
       task: this.state.formvalue,
       id: Date.now(),
