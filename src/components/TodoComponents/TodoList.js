@@ -34,13 +34,27 @@ class TodoList extends React.Component {
     });
   };
 
+  toggleItem = id => {
+    this.setState = prevState => {
+      return {
+        taskTodo: prevState.taskTodo.map(item => {
+          if (item.id === id) {
+            return {
+              ...item,
+              completed: !item.completed
+            };
+          }
+        })
+      };
+    };
+  };
   render() {
     console.log(this.state.taskTodo);
     return (
       <div>
         {this.state.taskTodo.map(element => {
           console.log(element);
-          return <Todo taskList={element} />;
+          return <Todo taskList={element} key={item.id} toggleItem={this.toggleItem} />;
         })}
         <TodoForm value={this.state.formvalue} addTheTask={this.addTask} handle={this.handleChanges} />
       </div>
