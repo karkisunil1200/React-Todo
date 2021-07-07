@@ -1,36 +1,65 @@
-// your components will all go in this `component` directory.
-// feel free to change this component.js into TodoList.js
-
-// export const data = [
-//   {
-//     task: 'Organize Garage',
-//     id: 01,
-//     completed: false
-//   },
-
-//   {
-//     task: 'Finish Homework',
-//     id: 02,
-//     completed: false
-//   },
-
-//   {
-//     task: 'Finish trainingKit',
-//     id: 03,
-//     completed: false
-//   }
-// ];
-
 import React from 'react';
+import {data} from './Data';
 import Todo from './Todo';
-const TodoList = props => {
-  return (
-    <ul>
-      {props.task.map(prop => (
-        <Todo list={prop} />
-      ))}
-    </ul>
-  );
-};
+import TodoForm from './TodoForm';
+
+class TodoList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      taskTodo: data,
+      formvalue: ''
+    };
+  }
+
+  addTask = event => {
+    event.preventDefault();
+
+    const newTask = {
+      task: this.state.formvalue,
+      id: Date.now(),
+      completed: false
+    };
+    console.log(newTask);
+    this.setState({
+      taskTodo: [...this.state.taskTodo, newTask],
+      formvalue: ''
+    });
+  };
+
+  handleChanges = event => {
+    console.log(event.target.name);
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  toggleItem = id => {
+    this.setState = prevState => {
+      return {
+        taskTodo: prevState.taskTodo.map(item => {
+          if (item.id === id) {
+            return {
+              ...item,
+              completed: !item.completed
+            };
+          }
+        })
+      };
+    };
+  };
+  render() {
+    console.log(this.state.taskTodo);
+    return (
+      <div>
+        {this.state.taskTodo.map(element => {
+          console.log(element);
+          return <Todo taskList={element} key={item.id} toggleItem={this.toggleItem} />;
+        })}
+        <TodoForm value={this.state.formvalue} addTheTask={this.addTask} handle={this.handleChanges} />
+      </div>
+    );
+  }
+}
 
 export default TodoList;
